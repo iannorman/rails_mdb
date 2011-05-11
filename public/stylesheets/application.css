@@ -1,5 +1,5 @@
 body {
-  background-color: #4B7399;
+  background-color: #4F493F;
   font-family: Verdana, Helvetica, Arial;
   font-size: 14px;
 }
@@ -73,3 +73,5 @@ a {
 .error_messages ul {
   margin: 0;
 }
+#navigation {float: left;}
+#search {float: right;}

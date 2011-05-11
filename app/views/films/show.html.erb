@@ -14,6 +14,14 @@
 </p>
 
 <p>
+	<strong>Rating</strong>
+	<%= @film.rating %>
+	<%= raw RedCloth.new(@film.description).to_html %>
+</p>
+
+	
+
+<p>
   <%= link_to "Edit", edit_film_path(@film) %> |
   <%= link_to "Destroy", @film, :confirm => 'Are you sure?', :method => :delete %> |
   <%= link_to "View All", films_path %>

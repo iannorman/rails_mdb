@@ -66,7 +66,8 @@ describe FilmsController do
 
     film=Film.create!(:name => 'jkghdf',
                       :url => 'dfd',
-                      :description => 'dffd')
+                      :description => 'dffd',
+                      :rating => 1)
   lambda do
     delete :destroy, :id => film.id
     response.should redirect_to(films_url) #when destroyed redirects to list of remaining films

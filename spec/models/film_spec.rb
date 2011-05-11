@@ -35,3 +35,41 @@ describe 'cleaning the url' do
   
   end
 end
+
+describe 'ratings' do
+  it 'should be valid when rating is 0 to 5' do
+    (0..5).each do |rating|
+      film = Factory.build(:film, :rating => rating)
+      film.valid?.should be_true
+    end
+  end
+end
+
+describe 'ratings' do
+  it 'should not be valid when rating is -1' do
+      film = Factory.build(:film, :rating => -1)
+      film.valid?.should be_false
+      film.errors_on(:rating).should == ["must be greater than -1"]
+  end
+end
+
+describe 'ratings' do
+  it 'should not be valid when rating is 6' do
+      film = Factory.build(:film, :rating => 6)
+      film.valid?.should be_false
+      film.errors_on(:rating).should == ["must be less than 6"]
+  end
+end
+
+# == Schema Information
+#
+# Table name: films
+#
+#  id          :integer         not null, primary key
+#  name        :string(255)
+#  url         :string(255)
+#  description :string(255)
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
