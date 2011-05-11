@@ -1,4 +1,5 @@
 <% title "Film" %>
+<%= hidden_field_tag :film_id, @film.id %>
 
 <p>
   <strong>Name:</strong>
@@ -19,7 +20,22 @@
 	<%= raw RedCloth.new(@film.description).to_html %>
 </p>
 
+<div id="comments-container">
+	<%= @film.comments.each do |comment|%>
+	<%= render :partial => 'comments/comment', :locals => {:comment => comment} %>
+	<%end%>
+</div>	
+
+<div id= "add-comments-container">
+	<b><strong>Add Comments</strong></br>
+	<%= form_tag nil, :id => 'add-comment-form' do %>
+	<%= text_area_tag :add_comment_text %>
+	<%end%>
 	
+	<div><button id="add-comment-button">Add</button></div>
+</div>	
+
+<%= image_tag @film.photo(:medium) %>
 
 <p>
   <%= link_to "Edit", edit_film_path(@film) %> |

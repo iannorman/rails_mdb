@@ -1,7 +1,13 @@
 RailsMdb::Application.routes.draw do
+  devise_for :admins
+
+  devise_for :users
+
   resources :genres
 
-  resources :films
+  resources :films do
+    resources :comments, :only => [:create, :destroy] #nesting comments within films
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

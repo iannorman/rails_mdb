@@ -14,6 +14,15 @@ describe FilmsController do
     get :show, :id => film.id
     response.should render_template(:show)
   end
+  
+  
+  describe 'admin actions' do
+    before(:each) do
+      sign_in :admin, Factory(:admin)
+    end  
+  
+
+  
 
   it "new action should render new template" do
     film=Factory.build(:film)
@@ -23,12 +32,12 @@ describe FilmsController do
   end
 
   it "create action should render new template when model is invalid" do
-    
+
     film=Factory.build(:film)
     Film.expects(:new).with('x' => 'x').returns(film) #spurious parameters. calls new and breaks validation rules so shouldn't save
     film.expects(:save).returns(false)
     post :create, :film => {'x' => 'x'}
-    
+
     response.should render_template(:new)
   end
 
@@ -65,18 +74,21 @@ describe FilmsController do
 
 
     film=Film.create!(:name => 'jkghdf',
-                      :url => 'dfd',
-                      :description => 'dffd',
-                      :rating => 1)
-  lambda do
-    delete :destroy, :id => film.id
-    response.should redirect_to(films_url) #when destroyed redirects to list of remaining films
+    :url => 'dfd',
+    :description => 'dffd',
+    :rating => 1)
+    lambda do
+      delete :destroy, :id => film.id
+      response.should redirect_to(films_url) #when destroyed redirects to list of remaining films
 
-    #film = Film.first
-    #delete :destroy, :id => film
-    #response.should redirect_to(films_url)
-    #Film.exists?(film.id).should be_false
-  end.should change(Film, :count).by(-1)
+      #film = Film.first
+      #delete :destroy, :id => film
+      #response.should redirect_to(films_url)
+      #Film.exists?(film.id).should be_false
+    end.should change(Film, :count).by(-1)
   end
-  
+
+
+end
+
 end
